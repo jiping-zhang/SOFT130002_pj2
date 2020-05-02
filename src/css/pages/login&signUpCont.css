@@ -1,0 +1,54 @@
+#content{
+    background-color:#999999;
+    color: white;
+    min-width: 803px;
+    width: 80%;
+    margin: 0 10% 150px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#content table{
+    margin: 0 auto;
+}
+
+#content table td{
+    padding: 8px;
+}
+
+#content table #wrongUserName,#wrongPw,#wrongRePw{
+    color: #999999;
+    overflow: hidden;
+}
+
+#content a{
+    text-decoration: none;
+}
+
+#content input,select{
+    font-size: 20px;
+}
+
+p{
+    padding: 10px;
+}
+
+.submitBt {
+    padding: 5px 20px;
+    margin: auto;
+    border-radius: 12px;
+    background: -webkit-linear-gradient(#57a8d6, #65fc4b);
+    font-size: 20px;
+    color: white;
+    letter-spacing: 2px;
+    text-align: center;
+    outline: none;
+    border: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submitBt:hover {
+    background: -webkit-linear-gradient(#3386ba, #6ac65c);
+    border: 0;
+}
