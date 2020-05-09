@@ -8,13 +8,10 @@
     <link href="../../css/pages/login&signUpCont.css" rel="stylesheet" type="text/css">
     <script src="../../js/submitCheck.js" type="text/javascript" rel="script" defer></script>
     <script src="../../js/singUpSendEmail.js" type="text/javascript" rel="script" defer></script>
-    <link rel="stylesheet" href="sliderStyle.css">
-    <script type="text/javascript" src="slider.js"></script>
 </head>
 <body>
 <header id="navBox">
-    <a href="login.php"><span id="navRight" class="singleItem"><img
-            src="../../../sources/img/navBox/login.jpg">登陆</span></a>
+    <a href="login.php"><span id="navRight" class="singleItem"><img src="../../../sources/img/navBox/login.jpg">登陆</span></a>
     <a href="../welcome.php"><span class="singleItem">首页</span></a>
     <a href="../navItems/browserPage.php"><span class="singleItem">浏览页</span></a>
     <a href="../navItems/searchPage.php"><span class="singleItem">搜索页</span></a>
@@ -30,13 +27,13 @@
             </tr>
             <tr>
                 <td><p>输入密码</p></td>
-                <td><input type="password" name="password" id="password" onblur="passwordCheck();rePasswordCheck()" onkeyup="passwordCheck();rePasswordCheck()" required="required"
+                <td><input type="password" name="password" id="password" onblur="passwordCheck();rePasswordCheck()" required="required"
                            pattern="[0-9a-zA-Z]{8,17}"></td>
                 <td colspan="2"><p id="wrongPw">密码需由8-16位 英语字母或数字 组成</p></td>
             </tr>
             <tr>
                 <td><p>确认密码</p></td>
-                <td><input type="password" name="rePassword" id="rePassword" onblur="rePasswordCheck()" onkeyup="rePasswordCheck()"
+                <td><input type="password" name="rePassword" id="rePassword" onblur="rePasswordCheck()"
                            required="required" pattern="[0-9a-zA-Z]{8,17}"></td>
                 <td colspan="2"><p id="wrongRePw">两次输入的密码不一样</p></td>
             </tr>
@@ -75,46 +72,19 @@
                             <td></td>
                             <td></td>
                         </tr>-->
-            <!--            <tr>
-                            <td><p>输入答案</p></td>
-                            <td><p id="captchaText">&nbsp</p></td>
-                            <td><input type="text" name="captcha" id="captchaInput"></td>
-                            <td><input type="button" value="刷新" onclick="shiftCaptchaText()"></td>
-                        </tr>-->
             <tr>
-                <td><p>滑动图片</p></td>
-                <td colspan="3">
-                    <div class="hidden">
-                        <input type="number" id="imgCheckInput" value="0">
-                    </div>
-                    <div id="slideBar"></div>
-                    <p id="imgCheck" style="color: #e9ffe0">　&nbsp;</p>
-                </td>
-                <script type="text/javascript">
-		            var dataList = ["0", "1"];
-		            var options = {
-			            dataList: dataList,
-			            success: function ()
-			            {
-				            console.log("show");
-				            document.getElementById("imgCheckInput").value = 1;
-				            document.getElementById("imgCheck").innerHTML="验证通过";
-			            },
-			            fail: function ()
-			            {
-				            console.log("fail");
-			            }
-		            };
-		            SliderBar("slideBar", options);
-                </script>
+                <td><p>输入答案</p></td>
+                <td><p id="captchaText">&nbsp</p></td>
+                <td><input type="text" name="captcha" id="captchaInput"></td>
+                <td><input type="button" value="刷新" onclick="shiftCaptchaText()"></td>
             </tr>
             <tr>
                 <td><p>输入验证码</p></td>
-                <td><input type="number" name="captchaNumber" id="emailCaptchaInput" required></td>
-                <td><input type="button" value="发送邮件" onclick="alert('往验证邮箱发送邮件')" id="sendEmailBt" class="otherBt"></td>
+                <td colspan="2"><input type="number" name="captchaNumber" id="emailCaptchaInput"></td>
+                <td><input type="button" value="发送邮件" onclick="alert('往验证邮箱发送邮件')" id="sendEmailBt"></td>
                 <td><p id="resendTime" style="color: #ffd2d2"></p></td>
             </tr>
-            <!--<tr>
+            <tr>
                 <td><p>请阅读协议</p></td>
                 <td colspan="3">
                     <textarea disabled style="width: 500px; height: 300px">
@@ -151,7 +121,7 @@
                 <td><input type="radio" value="agree" name="agree" id="iAgree" required="required">同意</td>
                 <td><input type="radio" value="disagree" name="agree" disabled>不同意</td>
                 <td></td>
-            </tr>-->
+            </tr>
             <tr>
                 <td></td>
                 <td></td>
@@ -171,12 +141,12 @@
 </footer>
 </body>
 <script defer>
-	window.addEventListener("resize", function ()
+	window.addEventListener("resize",function ()
 	{
-		if (document.body.clientWidth < 900)
-			document.getElementById("content").style.margin = "0 0 50px";
+		if (document.body.clientWidth<900)
+			document.getElementById("content").style.margin="0 0 50px";
 		else
-			document.getElementById("content").style.margin = "0 10% 50px";
+			document.getElementById("content").style.margin="0 10% 50px";
 	})
 </script>
-</
+</html>

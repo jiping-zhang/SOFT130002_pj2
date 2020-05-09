@@ -52,3 +52,23 @@ p{
     background: -webkit-linear-gradient(#3386ba, #6ac65c);
     border: 0;
 }
+
+.otherBt {
+    padding: 5px 20px;
+    margin: auto;
+    border-radius: 12px;
+    background: -webkit-linear-gradient(#e10600, #edec41);
+    font-size: 20px;
+    color: white;
+    letter-spacing: 2px;
+    text-align: center;
+    outline: none;
+    border: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.otherBt:hover {
+    background: -webkit-linear-gradient(#a63e3c, #b7b463);
+    border: 0;
+}

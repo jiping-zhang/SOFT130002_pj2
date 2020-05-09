@@ -29,50 +29,67 @@ if (isset($_COOKIE['UID']))
     $title = $_POST['title'];
     $description = $_POST['description'];
 
-    echo $content . $countryName . $cityName . $title . $description . '<br/>';
+    //echo $content . $countryName . $cityName . $title . $description . '<br/>';
 
-    $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+    $dir = dirname(__FILE__);
+    $indexOfL = strpos($dir, "src\\html") + 8;
+    $dir = substr($dir, 0, $indexOfL) . "\\configPHP.php";
+    require $dir;
+    $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+    mysqli_select_db($link, DB_NAME);
     mysqli_set_charset($link, "utf8");
-    mysqli_select_db($link, "pj2");
 
-    /*echo "Upload: " . $_FILES["file0"]["name"] . "<br />";
+    $uid = $_COOKIE['UID'];
+    $password_sha256 = $_COOKIE['password'];
+    $query = "select * from traveluser where UID= $uid and Pass = '$password_sha256' ;";
+   // echo $query;
+    $result = mysqli_query($link, $query);
+    if (mysqli_fetch_array($result) == null)
+    {
+        mysqli_close($link);
+        //echo "<script>window.location.href='login.php';alert('登陆信息错误，请重新登陆')</script>";
+    }
+    else
+    {
+        /*echo "Upload: " . $_FILES["file0"]["name"] . "<br />";
     echo "Type: " . $_FILES["file0"]["type"] . "<br />";
     echo "Size: " . ($_FILES["file0"]["size"] / 1024) . " Kb<br />";
     echo "Temp file: " . $_FILES["file0"]["tmp_name"] . "<br />";*/
 
-    $initialFileName = $_FILES["file0"]["name"];
-    $fileName = getNoneRepeatFileName($link, $initialFileName);
-    $dir = dirname(__FILE__);
-    $destination = str_replace("src\\html\\personalCenter", "sources\\img\\travel-images\\normal\\medium\\", $dir) . $fileName;
-    move_uploaded_file($_FILES['file0']['tmp_name'], $destination);
+        $initialFileName = $_FILES["file0"]["name"];
+        $fileName = getNoneRepeatFileName($link, $initialFileName);
+        $dir = dirname(__FILE__);
+        $destination = str_replace("src\\html\\personalCenter", "sources\\img\\travel-images\\normal\\medium\\", $dir) . $fileName;
+        move_uploaded_file($_FILES['file0']['tmp_name'], $destination);
 
 
-    $query = "select ISO from geocountries where lower(CountryName)=lower('" . $countryName . "');";
-    try
-    {
-        $countryISO = mysqli_fetch_row(mysqli_query($link, $query))[0];
-    } catch (Exception $exception)
-    {
-        echo "<script>window.location.href='upload.php';alert('please enter right country name!')</script>";
+        $query = "select ISO from geocountries where lower(CountryName)=lower('" . $countryName . "');";
+        try
+        {
+            $countryISO = mysqli_fetch_row(mysqli_query($link, $query))[0];
+        } catch (Exception $exception)
+        {
+            echo "<script>window.location.href='upload.php';alert('please enter right country name!')</script>";
+        }
+
+
+        $query = "select GeoNameID from geocities where CountryCodeISO='" . $countryISO . "' and lower(AsciiName)=lower('" . $cityName . "');";
+        try
+        {
+            $cityID = mysqli_fetch_row(mysqli_query($link, $query))[0];
+        } catch (Exception $exception)
+        {
+            echo "<script>window.location.href='upload.php';alert('please enter right city name!')</script>";
+        }
+
+        $query = "insert into travelimage (Title, Description, CityCode, CountryCodeISO, UID, PATH) values ('$title','$description',$cityID,'$countryISO',$uid,'$fileName')";
+        //echo $query;
+        mysqli_query($link, $query);
+
+        mysqli_close($link);
+
+        echo "<script>window.location.href='myPhotos.php'</script>";
     }
-
-
-    $query = "select GeoNameID from geocities where CountryCodeISO='" . $countryISO . "' and lower(AsciiName)=lower('" . $cityName . "');";
-    try
-    {
-        $cityID = mysqli_fetch_row(mysqli_query($link, $query))[0];
-    } catch (Exception $exception)
-    {
-        echo "<script>window.location.href='upload.php';alert('please enter right city name!')</script>";
-    }
-
-    $query = "insert into travelimage (Title, Description, CityCode, CountryCodeISO, UID, PATH) values ('$title','$description',$cityID,'$countryISO',$uid,'$fileName')";
-    echo $query;
-    mysqli_query($link, $query);
-
-    echo "<script>window.location.href='myPhotos.php'</script>";
-
-    mysqli_close($link);
 }
 else
     echo "<script>window.location.href='./login.php';alert('登陆超时，请重新登陆')</script>"

@@ -5,7 +5,6 @@
     <link href="../../css/reset.css" rel="stylesheet" type="text/css">
     <link href="../../css/main.css" rel="stylesheet" type="text/css">
     <link href="../../css/pages/login&signUpCont.css" rel="stylesheet" type="text/css">
-    <script src="../../js/login.js"></script>
     <title>登陆</title>
 </head>
 <body>
@@ -77,6 +76,12 @@
                 <!--                <td><a href=\"signUp.html\"><span class=\"submitBt\">注册</span></a></td>-->
                 <td>
                     <button class=\"submitBt\" onclick=\"window.location.href='signUp.html'\">注册</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class=\"otherBt\" onclick=\"window.location.href='resetPassword.html'\">忘记密码</button>
                 </td>
             </tr>
         </table>

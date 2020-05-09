@@ -174,9 +174,13 @@ if (!isset($_COOKIE['UID']))
             <?php
             $uid = $_COOKIE['UID'];
 
-            $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+            $dir = dirname(__FILE__);
+            $indexOfL = strpos($dir, "src\\html") + 8;
+            $dir = substr($dir, 0, $indexOfL) . "\\configPHP.php";
+            require $dir;
+            $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+            mysqli_select_db($link, DB_NAME);
             mysqli_set_charset($link, "utf8");
-            mysqli_select_db($link, "pj2");
 
             $query = "select ImageID,Title,Description,PATH from travelimage where UID=$uid ;";
             $resultArray = mysqli_fetch_all(mysqli_query($link, $query), MYSQLI_ASSOC);

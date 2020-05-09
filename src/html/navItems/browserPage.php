@@ -174,9 +174,14 @@
             </form>
             <ul id="cityAndCountryInfo">
                 <?php
-                $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+                $dir = dirname(__FILE__);
+                $indexOfL = strpos($dir, "src\\html") + 8;
+                $dir = substr($dir, 0, $indexOfL) . "\\configPHP.php";
+                require $dir;
+                $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                mysqli_select_db($link, DB_NAME);
                 mysqli_set_charset($link, "utf8");
-                mysqli_select_db($link, "pj2");
+
 
                 $query = "select distinct CountryCodeISO from travelimage ;";
                 $countryISOArray = array_column(mysqli_fetch_all(mysqli_query($link, $query)), 0);
@@ -223,9 +228,9 @@
             </ul>
             <ul id="imgList">
                 <?php
-                $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+                $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                mysqli_select_db($link, DB_NAME);
                 mysqli_set_charset($link, "utf8");
-                mysqli_select_db($link, "pj2");
 
                 $cityName = $_GET['city'];
                 $countryName = $_GET['country'];

@@ -1,119 +1,97 @@
+let captchaAns;
+
+const shiftCaptchaText = function ()
 {
-	let captchaAns;
-
-	var shiftCaptchaText = function ()
+	const captchaText = document.getElementById("captchaText");
+	return function ()
 	{
-		var captchaText = document.getElementById("captchaText");
-		return function ()
+		let a = Math.floor(50.0 * Math.random());
+		let b = Math.floor(a * Math.random());
+		let c = Math.floor(2.0 * Math.random());
+		switch (c)
 		{
-			let a = Math.floor(50.0 * Math.random());
-			let b = Math.floor(a * Math.random());
-			let c = Math.floor(2.0 * Math.random());
-			switch (c)
-			{
-				case 0:
-					captchaText.innerHTML = ("" + a + " + " + b + " = ");
-					captchaAns = a + b;
-					break;
-				case 1:
-					captchaText.innerHTML = ("" + a + " - " + b + " = ");
-					captchaAns = a - b;
-					break;
-			}
+			case 0:
+				captchaText.innerHTML = ("" + a + " + " + b + " = ");
+				captchaAns = a + b;
+				break;
+			case 1:
+				captchaText.innerHTML = ("" + a + " - " + b + " = ");
+				captchaAns = a - b;
+				break;
 		}
-	}();
+	}
+}();
 
-	var userNameCheck = function ()
+const userNameCheck = function ()
+{
+	const userName = document.getElementById("userName");
+	const wrongUNText = document.getElementById("wrongUserName");
+	return function ()
 	{
-		var userName = document.getElementById("userName");
-		var wrongUNText = document.getElementById("wrongUserName");
-		return function ()
-		{
-			if (userName.checkValidity())
-				wrongUNText.style.color = "#999999";
-			else
-				wrongUNText.style.color = "#ffd2d2";
-		}
-	}();
+		if (userName.checkValidity())
+			wrongUNText.style.color = "#999999";
+		else
+			wrongUNText.style.color = "#ffd2d2";
+	}
+}();
 
-	var passwordCheck = function ()
+const passwordCheck = function ()
+{
+	const password = document.getElementById("password");
+	const wrongPwText = document.getElementById("wrongPw");
+	return function ()
 	{
-		var password = document.getElementById("password");
-		var wrongPwText = document.getElementById("wrongPw");
-		return function ()
+		if (password.checkValidity())
+			wrongPwText.style.color = "#999999";
+		else
+			wrongPwText.style.color = "#ffd2d2";
+	}
+}();
+
+const rePasswordCheck = function ()
+{
+	const password = document.getElementById("password");
+	const rePassword = document.getElementById("rePassword");
+	const wrongRePwText = document.getElementById("wrongRePw");
+	return function ()
+	{
+		if (password.value === rePassword.value)
+			wrongRePwText.style.color = "#999999";
+		else
+			wrongRePwText.style.color = "#ffd2d2";
+	}
+}();
+
+const submitForm = function ()
+{
+	const userName = document.getElementById("userName");
+	const password = document.getElementById("password");
+	const rePassword = document.getElementById("rePassword");
+	const iAgree = document.getElementById("iAgree");
+	const signUpForm = document.getElementById("signUpForm");
+	const captchaInput = document.getElementById("captchaInput");
+	return function ()
+	{
+		if (userName.checkValidity())
 		{
 			if (password.checkValidity())
-				wrongPwText.style.color = "#999999";
-			else
-				wrongPwText.style.color = "#ffd2d2";
-		}
-	}();
-
-	var rePasswordCheck = function ()
-	{
-		var password = document.getElementById("password");
-		var rePassword = document.getElementById("rePassword");
-		var wrongRePwText = document.getElementById("wrongRePw");
-		return function ()
-		{
-			if (password.value === rePassword.value)
-				wrongRePwText.style.color = "#999999";
-			else
-				wrongRePwText.style.color = "#ffd2d2";
-		}
-	}();
-
-	var submitForm = function ()
-	{
-		var userName = document.getElementById("userName");
-		var password = document.getElementById("password");
-		var rePassword = document.getElementById("rePassword");
-		var iAgree = document.getElementById("iAgree");
-		var signUpForm = document.getElementById("signUpForm");
-		var captchaInput = document.getElementById("captchaInput");
-		return function ()
-		{
-			if (userName.checkValidity())
 			{
-				if (password.checkValidity())
+				if (password.value === rePassword.value)
 				{
-					if (password.value === rePassword.value)
-					{
-						if (iAgree.checkValidity())
-						{
-							if (iAgree.value == "agree")
-							{
-								let input = -1;
-								try
-								{
-									input = parseInt(captchaInput.value);
-								} catch (e)
-								{
-									alert("验证答案错误！");
-								}
-								if (input === captchaAns)
-									signUpForm.submit();
-								else
-									alert("验证答案错误！");
-							}
-							else
-								alert("请先同意协议");
-						}
-						else
-							alert("请先同意协议");
-					}
-					else
-						alert("两次输入的密码不一样！");
+					signUpForm.submit();
 				}
 				else
-					alert("密码需由8-16位英语字母或数字组成");
+					alert("两次输入的密码不一样！");
 			}
 			else
-				alert("用户名需为有效邮箱地址");
+				alert("密码需由8-16位英语字母或数字组成");
 		}
-	}();
+		else
+			alert("用户名需为有效邮箱地址");
+	}
+}();
 
-	var setCity = (function ()
+/*	var setCity = (function ()
 	{
 		var provinceForm = document.getElementById("provinceForm");
 		var cityForm = document.getElementById("cityForm");
@@ -137,11 +115,6 @@
 				cityForm.options[i + 1].value = city[provinceValue][i];
 			}
 		}
-	})();
+	})();*/
 
-	window.onload = function ()
-	{
-		setCity();
-		shiftCaptchaText();
-	};
-}
+//shiftCaptchaText();

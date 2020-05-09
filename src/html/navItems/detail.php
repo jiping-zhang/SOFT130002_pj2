@@ -37,8 +37,12 @@
 <section id="content">
     <?php
     $imageID = $_GET['imageID'];
-    $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
-    mysqli_set_charset($link, "utf8");
+    $dir = dirname(__FILE__);
+    $indexOfL=strpos($dir,"src\\html")+8;
+    $dir=substr($dir,0,$indexOfL)."\\configPHP.php";
+    require $dir;
+    $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+    mysqli_select_db($link, DB_NAME);
     mysqli_select_db($link, "pj2");
 
     $query = "select * from travelimage where ImageID=" . $imageID . ";";
@@ -69,11 +73,11 @@
             <?php
             if (isset($_COOKIE['UID']))
             {
-                $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+                $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                mysqli_select_db($link, DB_NAME);
                 mysqli_set_charset($link, "utf8");
-                mysqli_select_db($link, "pj2");
-                $query="select * from travelimagefavor where UID= ".$_COOKIE['UID']." and ImageID = ".$imageID.";";
-                if (mysqli_fetch_row(mysqli_query($link,$query))!=null)
+                $query = "select * from travelimagefavor where UID= " . $_COOKIE['UID'] . " and ImageID = " . $imageID . ";";
+                if (mysqli_fetch_row(mysqli_query($link, $query)) != null)
                     echo "action='deleteFavour.php'";
                 else
                     echo "action='iFavour.php'";
@@ -123,11 +127,11 @@
                 <?php
                 if (isset($_COOKIE['UID']))
                 {
-                    $link = mysqli_connect("localhost", "xxx41", "asdfg142857");
+                    $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                    mysqli_select_db($link, DB_NAME);
                     mysqli_set_charset($link, "utf8");
-                    mysqli_select_db($link, "pj2");
-                    $query="select * from travelimagefavor where UID= ".$_COOKIE['UID']." and ImageID = ".$imageID.";";
-                    if (mysqli_fetch_row(mysqli_query($link,$query))!=null)
+                    $query = "select * from travelimagefavor where UID= " . $_COOKIE['UID'] . " and ImageID = " . $imageID . ";";
+                    if (mysqli_fetch_row(mysqli_query($link, $query)) != null)
                         echo "取消收藏";
                     else
                         echo "收藏";
