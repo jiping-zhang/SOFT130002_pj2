@@ -73,8 +73,11 @@ const setPageNumber = (function ()
 				deleteFavorBts[i].imageID=parseInt(imgsInfoLIList[i].getElementsByTagName('h5')[0].innerHTML);
 				deleteFavorBts[i].onclick=function ()
 				{
-					deleteFavorInput.value=this.imageID;
-					deleteFavorForm.submit();
+					if (confirm("确认取消收藏这张照片吗？"))
+					{
+						deleteFavorInput.value = this.imageID;
+						deleteFavorForm.submit();
+					}
 				}
 			} catch (e)
 			{

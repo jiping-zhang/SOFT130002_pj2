@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
     if (!isset($_COOKIE['UID']))
-        echo "<script>window.location.href='./login.php';alert('登陆超时，请重新登陆')</script>"
+        echo "<script>window.location.href='./userInfoRelatedPages/login.php';alert('登陆超时，请重新登陆')</script>"
 ?>
 <head>
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
             <a href="myFavourite.php"><span class="singleItem" id="selected"><img
                             src="../../../sources/img/navBox/myFavourite.jpg">我的收藏</span></a>
             <br>
-            <a href="login.php"><span class="singleItem"><img src="../../../sources/img/navBox/login.jpg">登陆</span></a>
+            <a href="userInfoRelatedPages/login.php"><span class="singleItem"><img src="../../../sources/img/navBox/login.jpg">登陆</span></a>
         </div>
     </div>
     <a href="../welcome.php"><span class="singleItem">首页</span></a>

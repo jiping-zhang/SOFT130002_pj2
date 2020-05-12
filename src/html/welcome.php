@@ -15,21 +15,9 @@
 <header id="navBox">
     <?php
     if (isset($_COOKIE['UID']))
-        print "<div class=\"singleMenu\" id=\"navRight\">
-        <span>个人中心</span>
-        <div class=\"singleCont\">
-            <a href=\"personalCenter/upload.php\"><span class=\"singleItem\"><img
-                    src=\"../../sources/img/navBox/upload.jpg\">上传</span></a>
-            <br>
-            <a href=\"personalCenter/myPhotos.php\"><span class=\"singleItem\"><img src=\"../../sources/img/navBox/myPhotos.jpg\">我的照片</span></a>
-            <br>
-            <a href=\"personalCenter/myFavourite.php\"><span class=\"singleItem\"><img
-                    src=\"../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
-            <br>
-            <a href=\"personalCenter/login.php\"><span class=\"singleItem\"><img
-                    src=\"../../sources/img/navBox/login.jpg\">登陆</span></a>
+        print ">登陆</span></a>
         </div>
-    </div>";
+    </div>\"";
     else
         print "    <a href=\"personalCenter/login.php\"><span class=\"singleItem\" id=\"navRight\"><img
                 src=\"../../sources/img/navBox/login.jpg\">登陆</span></a>"

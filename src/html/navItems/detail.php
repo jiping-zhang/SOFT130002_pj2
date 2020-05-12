@@ -24,11 +24,11 @@
             <br>
             <a href=\"../personalCenter/myFavourite.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
             <br>
-            <a href=\"../personalCenter/login.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>
+            <a href=\"../personalCenter/userInfoRelatedPages/login.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>
         </div>
     </div>";
     else
-        print "    <a href=\"../personalCenter/login.php\"><span  id=\"navRight\"  class=\"singleItem\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>"
+        print "    <a href=\"../personalCenter/userInfoRelatedPages/login.php\"><span id=\"navRight\" class=\"singleItem\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>"
     ?>
     <a href="../welcome.php"><span class="singleItem">首页</span></a>
     <a href="browserPage.php"><span class="singleItem">浏览页</span></a>

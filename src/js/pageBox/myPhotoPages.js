@@ -78,8 +78,11 @@ const setPageNumber = (function ()
 				deletePhotoBts[i].imageID=parseInt(imgsInfoLIList[i].getElementsByTagName('h5')[0].innerHTML);
 				deletePhotoBts[i].onclick=function ()
 				{
-					deletePhotoInput.value=this.imageID;
-					deletePhotoForm.submit();
+					if (confirm("确认删除这张照片吗？"))
+					{
+						deletePhotoInput.value = this.imageID;
+						deletePhotoForm.submit();
+					}
 				};
 				editPhotoBts[i].imageID=parseInt(imgsInfoLIList[i].getElementsByTagName('h5')[0].innerHTML);
 				editPhotoBts[i].path=imgsInfoLIList[i].getElementsByTagName('p')[0].innerHTML;

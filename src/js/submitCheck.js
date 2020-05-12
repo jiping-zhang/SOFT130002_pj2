@@ -65,26 +65,32 @@ const rePasswordCheck = function ()
 const submitForm = function ()
 {
 	const userName = document.getElementById("userName");
+	const isAvailableUserNameText=document.getElementById("isAvailableUserNameText");
 	const password = document.getElementById("password");
 	const rePassword = document.getElementById("rePassword");
-	const iAgree = document.getElementById("iAgree");
+	//const iAgree = document.getElementById("iAgree");
 	const signUpForm = document.getElementById("signUpForm");
-	const captchaInput = document.getElementById("captchaInput");
+	//const captchaInput = document.getElementById("captchaInput");
 	return function ()
 	{
 		if (userName.checkValidity())
 		{
-			if (password.checkValidity())
+			if (isAvailableUserNameText.innerHTML==="可用"||isAvailableUserNameText.innerHTML==="存在")
 			{
-				if (password.value === rePassword.value)
+				if (password.checkValidity())
 				{
-					signUpForm.submit();
+					if (password.value === rePassword.value)
+					{
+						signUpForm.submit();
+					}
+					else
+						alert("两次输入的密码不一样！");
 				}
 				else
-					alert("两次输入的密码不一样！");
+					alert("密码需由8-16位英语字母或数字组成");
 			}
 			else
-				alert("密码需由8-16位英语字母或数字组成");
+				alert("请检查用户名")
 		}
 		else
 			alert("用户名需为有效邮箱地址");

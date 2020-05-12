@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="../../css/reset.css" rel="stylesheet" type="text/css">
-    <link href="../../css/main.css" rel="stylesheet" type="text/css">
-    <link href="../../css/pages/login&signUpCont.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/main.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/pages/login&signUpCont.css" rel="stylesheet" type="text/css">
     <title>登陆</title>
 </head>
 <body>
@@ -26,21 +26,21 @@
         print "<div class=\"singleMenu\" id=\"navRight\">
         <span>个人中心</span>
         <div class=\"singleCont\">
-            <a href=\"../personalCenter/upload.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/upload.jpg\">上传</span></a>
+            <a href=\"../upload.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/upload.jpg\">上传</span></a>
             <br>
-            <a href=\"../personalCenter/myPhotos.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/myPhotos.jpg\">我的照片</span></a>
+            <a href=\"../myPhotos.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/myPhotos.jpg\">我的照片</span></a>
             <br>
-            <a href=\"../personalCenter/myFavourite.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
+            <a href=\"../myFavourite.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
             <br>
-            <a href=\"../personalCenter/login.php\"><span class=\"singleItem\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>
+            <a href=\"login.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>
         </div>
     </div>";
     else
-        echo "<a href=\"../personalCenter/login.php\"><span id=\"selected\" class=\"singleItem r\"><img src=\"../../../sources/img/navBox/login.jpg\">登陆</span></a>"
+        print "    <a href=\"login.php\"><span id=\"navRight\" class=\"singleItem\"><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>"
     ?>
-    <a href="../welcome.php"><span class="singleItem">首页</span></a>
-    <a href="../navItems/browserPage.php"><span class="singleItem">浏览页</span></a>
-    <a href="../navItems/searchPage.php"><span class="singleItem">搜索页</span></a>
+    <a href="../../welcome.php"><span class="singleItem">首页</span></a>
+    <a href="../../navItems/browserPage.php"><span class="singleItem">浏览页</span></a>
+    <a href="../../navItems/searchPage.php"><span class="singleItem">搜索页</span></a>
 </header>
 <section id="content">
     <?php
@@ -89,7 +89,7 @@
     ?>
 </section>
 <footer id="foot">
-    <p>Copy right 19302010022@fudan.edu.cn <img src="../../../sources/img/2dCode.jpg"></p>
+    <p>Copy right 19302010022@fudan.edu.cn <img src="../../../../sources/img/2dCode.jpg"></p>
 </footer>
 </body>
 </html>

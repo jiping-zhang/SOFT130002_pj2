@@ -21,7 +21,7 @@ if (isset($_COOKIE['UID']))
     if (mysqli_fetch_array($result) == null)
     {
         mysqli_close($link);
-        echo "<script>window.location.href='login.php';alert('登陆信息错误，请重新登陆')</script>";
+        echo "<script>window.location.href='userInfoRelatedPages/login.php';alert('登陆信息错误，请重新登陆')</script>";
     }
     else
     {
@@ -42,5 +42,5 @@ if (isset($_COOKIE['UID']))
     }
 }
 else
-    echo "<script>window.location.href='./login.php';alert('登陆超时，请重新登陆')</script>"
+    echo "<script>window.location.href='./userInfoRelatedPages/login.php';alert('登陆超时，请重新登陆')</script>"
 ?>

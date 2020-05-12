@@ -20,12 +20,12 @@ function SHA256Hex($str){
     return bin2hex($re);
 }
 $password_sha256=SHA256Hex($password);
-$query = "select * from traveluser where UserName='" . $userName . "'";
+$query = "select * from traveluser where UserName='" . $userName . "';";
 $result = mysqli_query($link, $query);
 if (($userInfoArray = mysqli_fetch_assoc($result)) == null)
 {
     mysqli_close($link);
-    echo "<script>window.location.href='./login.php';alert('用户不存在！请确认用户名是否正确')</script>";
+    echo "<script>window.location.href='login.php';alert('用户不存在！请确认用户名是否正确')</script>";
 }
 else
 {
@@ -36,12 +36,12 @@ else
         setcookie("UID",$userInfoArray['UID'],time()+3600,'/');
         setcookie("userName",$userInfoArray['UserName'],time()+3600,'/');
         setcookie("password",$correctPassword,time()+3600,'/');
-        echo "<script>window.location.href='../welcome.php';alert('登陆成功！');</script>";
+        echo "<script>window.location.href='../../welcome.php';alert('登陆成功！');</script>";
     }
     else
     {
         mysqli_close($link);
-        echo "<script>window.location.href='./login.php';alert('密码错误！（密码是大小写敏感的）')</script>";
+        echo "<script>window.location.href='login.php';alert('密码错误！（密码是大小写敏感的）')</script>";
     }
 }
 ?>

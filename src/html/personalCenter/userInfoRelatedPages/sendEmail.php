@@ -1,5 +1,6 @@
 <html>
 <body>
+<div style="display: none">
 <p>
 <?php
 
@@ -42,28 +43,28 @@ if (mysqli_fetch_array($result) == null)
     $mail->SMTPAuth = true;
 
 // 链接qq域名邮箱的服务器地址
-    $mail->Host = 'smtp.qq.com';
+    $mail->Host = EMAIL_HOST;
 
 // 设置使用ssl加密方式登录鉴权
-    $mail->SMTPSecure = 'ssl';
+    $mail->SMTPSecure = EMAIL_SMTPSECURE;
 
 // 设置ssl连接smtp服务器的远程服务器端口号
-    $mail->Port = 465;
+    $mail->Port = SMTP_PORT;
 
 // 设置发送的邮件的编码
     $mail->CharSet = 'UTF-8';
 
 // 设置发件人昵称 显示在收件人邮件的发件人邮箱地址前的发件人姓名
-    $mail->FromName = 'xxx41kjmj';
+    $mail->FromName = EMAIL_FORMNAME;
 
 // smtp登录的账号 QQ邮箱即可
-    $mail->Username = '441624650@qq.com';
+    $mail->Username = EMAIL_USERNAME;
 
 // smtp登录的密码 使用生成的授权码
-    $mail->Password = 'tjblujdjjhalbiic';
+    $mail->Password = EMAIL_PASSWORD;
 
 // 设置发件人邮箱地址 同登录账号
-    $mail->From = '441624650@qq.com';
+    $mail->From = EMAIL_USERNAME;
 
 // 邮件正文是否为html编码 注意此处是一个方法
     $mail->isHTML(true);
@@ -90,5 +91,6 @@ else
 //var_dump($_SESSION);
 ?>
 </p>
+</div>
 </body>
 </html>
