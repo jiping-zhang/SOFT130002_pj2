@@ -84,7 +84,7 @@
                 mysqli_close($link);
             }
             else
-                echo "action='../personalCenter/login.php'";
+                echo "action='../personalCenter/userInfoRelatedPages/login.php'";
             ?>
         >
         <input type="number" name="imageID" <?php echo "value=".$imageID ?>>

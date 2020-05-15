@@ -86,7 +86,7 @@ if (mysqli_fetch_array($result) == null)
     echo "<script>window.close();alert('邮件发送成功，请查收验证邮件并返回注册页面继续注册');</script>";
 }
 else
-    echo "<script>alert('该用户名（".$emailAddress."）已被占用')</script>";
+    echo "<script>window.close();alert('该用户名（".$emailAddress."）已被占用')</script>";
 
 //var_dump($_SESSION);
 ?>

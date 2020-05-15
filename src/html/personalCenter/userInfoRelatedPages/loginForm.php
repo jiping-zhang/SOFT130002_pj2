@@ -36,7 +36,7 @@ else
         setcookie("UID",$userInfoArray['UID'],time()+3600,'/');
         setcookie("userName",$userInfoArray['UserName'],time()+3600,'/');
         setcookie("password",$correctPassword,time()+3600,'/');
-        echo "<script>window.location.href='../../welcome.php';alert('登陆成功！');</script>";
+        echo "<script>window.location.href='../../navItems/browserPage.php';alert('登陆成功！');</script>";
     }
     else
     {

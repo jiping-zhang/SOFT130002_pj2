@@ -8,6 +8,7 @@
     <link href="../../css/pages/browser.css" rel="stylesheet" type="text/css">
     <link href="../../css/cutImage.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../../js/setCity.js" defer></script>
+    <script type="text/javascript" src="../../js/browserRecommendBox.js" defer></script>
     <script type="text/javascript" src="../../js/cutImage.js"></script>
     <title>浏览</title>
 </head>
@@ -39,8 +40,8 @@
         <div class="singleMenu">
             <a><h2>search</h2></a>
             <div class="singleCont">
-                <form id="searchForm" method="get">
-                    <span class="singleItem"><input type="text" name="keyWord"></span>
+                <form id="searchForm" method="get" action="searchPage.php">
+                    <span class="singleItem"><input type="text" name="title"></span>
                     <br>
                     <span class="singleItem"><input type="submit" name="submit" value="搜索"></span>
                 </form>
@@ -48,63 +49,20 @@
         </div>
         <div class="singleMenu">
             <a><h2>hot content</h2></a>
-            <div class="singleCont">
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='scenery';document.getElementById('contentForm').submit();"> scenery </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='city';document.getElementById('contentForm').submit();"> city </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='people';document.getElementById('contentForm').submit();"> people </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='animal';document.getElementById('contentForm').submit();"> animal </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='building';document.getElementById('contentForm').submit();"> building </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('contentSelect').value='wonder';document.getElementById('contentForm').submit();"> wonder </span></a>
+            <div class="singleCont" id="contentRecommendBox">
+
             </div>
         </div>
         <div class="singleMenu">
             <a><h2>hot countries</h2></a>
-            <div class="singleCont">
-                <!--<a><span class="singleItem"
-                         onclick="document.getElementById('country').value='China';document.getElementById('contentForm').submit();"> China </span></a>
-                <br>-->
-                <a><span class="singleItem"
-                         onclick="document.getElementById('country').value='United States';document.getElementById('contentForm').submit();"> United States </span></a>
-                <br>
-                <!--                <a><span class="singleItem"
-                                         onclick="document.getElementById('country').value='Japan';document.getElementById('contentForm').submit();"> Japan </span></a>
-                                         <br>-->
-                <a><span class="singleItem"
-                         onclick="document.getElementById('country').value='Italy';document.getElementById('contentForm').submit();"> Italy </span></a>
+            <div class="singleCont" id="countryRecommendBox">
+
             </div>
         </div>
         <div class="singleMenu">
             <a><h2>hot cities</h2></a>
-            <div class="singleCont">
-                <!--                <a><span class="singleItem"
-                                         onclick="document.getElementById('country').value='China';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='Shanghai';document.getElementById('contentForm').submit();"> Shanghai </span></a>
-                                         <br>-->
+            <div class="singleCont" id="cityRecommendBox">
 
-                <a><span class="singleItem"
-                         onclick="document.getElementById('country').value='United States';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='New York';document.getElementById('contentForm').submit();"> New York </span></a>
-                <br>
-                <!--<a><span class="singleItem"
-                         onclick="document.getElementById('country').value='Japan';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='Tokyo';document.getElementById('contentForm').submit();"> Tokyo </span></a>
-                <br>-->
-                <!--<a><span class="singleItem"
-                         onclick="document.getElementById('country').value='China';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='Beijing';document.getElementById('contentForm').submit();"> Beijing </span></a>
-                <br>-->
-                <a><span class="singleItem"
-                         onclick="document.getElementById('country').value='Italy';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='Roma';document.getElementById('contentForm').submit();"> Roma </span></a>
-                <br>
-                <a><span class="singleItem"
-                         onclick="document.getElementById('country').value='United States';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='San Francisco';document.getElementById('contentForm').submit();"> San Francisco </span></a>
             </div>
         </div>
     </aside>
@@ -112,6 +70,7 @@
         <div class="contRow title">
             筛选
         </div>
+<!--        filter-->
         <div class="contRow">
             <div>
                 <form name="contentForm" id="contentForm" action="browserPage.php" method="get">
@@ -320,6 +279,138 @@
                 echo '<script>setPageBox();</script>';
                 ?>
             </ul>
+            <ul id="hotContent">
+                <?php
+                $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                mysqli_select_db($link, DB_NAME);
+                mysqli_set_charset($link, "utf8");
+                $query="select Favor,CountryCodeISO,CityCode,content from travelimage;";
+                $favorInfoArray=mysqli_fetch_all(mysqli_query($link,$query),MYSQLI_ASSOC);
+
+                $contentFavorTimes=array('scenery'=>0,'city'=>0,'people'=>0,'animal'=>0,'building'=>0,'wonder'=>0);
+                $countryFavorTimes=array();
+                $cityFavorTimes=array();
+                for ($i=0;$i<count($favorInfoArray);$i++)
+                {
+                    $rowInfo=$favorInfoArray[$i];
+                    $favorTimes=(int)$rowInfo['Favor'];
+
+                    if ($favorTimes>0)
+                    {
+                        $content=$rowInfo['content'];
+                        $countryISO=$rowInfo['CountryCodeISO'];
+                        $cityCode=$rowInfo['CityCode'];
+
+                        $contentFavorTimes[$content]+=$favorTimes;
+                        if (!array_key_exists($countryISO,$countryFavorTimes))
+                            $countryFavorTimes[$countryISO]=0;
+                        $countryFavorTimes[$countryISO]+=$favorTimes;
+
+                        if ($cityCode!=null)
+                        {
+                            if (!array_key_exists($cityCode,$cityFavorTimes))
+                                $cityFavorTimes[$cityCode]=0;
+                            $cityFavorTimes[$cityCode]+=$favorTimes;
+                        }
+                    }
+                }
+                arsort($contentFavorTimes);
+                arsort($countryFavorTimes);
+                arsort($cityFavorTimes);
+                $hotContents=array_keys($contentFavorTimes);
+                $hotCountryISOs=array_keys($countryFavorTimes);
+                $hotCityCodes=array_keys($cityFavorTimes);
+                $hotCountries=array();
+                $hotCities=array();
+                $countryOfHotCities=array();
+                for ($i=0;$i<count($countryFavorTimes);$i++)
+                {
+                    $countryISO=$hotCountryISOs[$i];
+                    $query="select CountryName from geocountries where ISO='$countryISO';";
+                    $hotCountries[$i]=mysqli_fetch_row(mysqli_query($link,$query))[0];
+                }
+                for ($i=0;$i<count($cityFavorTimes);$i++)
+                {
+                    $cityCode=$hotCityCodes[$i];
+                    $query="select AsciiName,CountryCodeISO from geocities where GeoNameID='$cityCode';";
+                    $rowInfo=mysqli_fetch_assoc(mysqli_query($link,$query));
+                    $hotCities[$i]=$rowInfo['AsciiName'];
+                    $countryISO=$rowInfo['CountryCodeISO'];
+                    $query="select CountryName from geocountries where ISO='$countryISO';";
+                    $countryOfHotCities[$i]=mysqli_fetch_row(mysqli_query($link,$query))[0];
+                }
+
+                mysqli_close($link);
+
+                for ($i=0;$i<3;$i++)
+                {
+                    echo "<li>".$hotContents[$i]."</li>";
+                }
+                ?>
+            </ul>
+            <ul id="hotCountries">
+                <?php
+                for ($i=0;$i<min(3,count($hotCountries));$i++)
+                {
+                    echo "<li>".$hotCountries[$i]."</li>";
+                }
+                ?>
+            </ul>
+            <ul id="hotCities">
+                <?php
+                for ($i=0;$i<min(6,count($hotCities));$i++)
+                {
+                    echo "<li>" ;
+                    echo "<h5>".$countryOfHotCities[$i]."</h5>";
+                    echo "<p>".$hotCities[$i]."</p>";
+                    echo "</li>";
+                }
+                ?>
+            </ul>
+<!--            <script defer>
+                //let contentSelect=document.getElementById("contentSelect");
+                let contentRecommendBox=document.getElementById("contentRecommendBox");
+                let hotContentLi=document.getElementById("hotContent").getElementsByTagName('li');
+                for (let i = 0; i < hotContentLi.length; i++)
+                {
+                	if (i>0)
+                		contentRecommendBox.appendChild(document.createElement("br"));
+                    let singleColumn=document.createElement("span");
+                    singleColumn.innerHTML=hotContentLi[i].innerHTML;
+                    singleColumn.setAttribute("class","singleItem");
+                    let onclickStr="document.getElementById('contentSelect').value='"+hotContentLi[i].innerHTML+"';document.getElementById('contentForm').submit();"
+                    singleColumn.setAttribute("onclick",onclickStr);
+                    contentRecommendBox.appendChild(singleColumn);
+                }
+                let countryRecommendBox=document.getElementById("countryRecommendBox");
+                let hotCountryLi=document.getElementById("hotCountries").getElementsByTagName("li");
+                for (let i = 0; i < hotCountryLi.length; i++)
+                {
+	                if (i>0)
+		                countryRecommendBox.appendChild(document.createElement("br"));
+	                let singleColumn=document.createElement("span");
+	                singleColumn.innerHTML=hotCountryLi[i].innerHTML;
+	                singleColumn.setAttribute("class","singleItem");
+	                let onclickStr="document.getElementById('country').value='"+hotCountryLi[i].innerHTML+"';document.getElementById('contentForm').submit();"
+	                singleColumn.setAttribute("onclick",onclickStr);
+	                countryRecommendBox.appendChild(singleColumn);
+                }
+                let cityRecommendBox=document.getElementById("cityRecommendBox");
+                let hotCityLi=document.getElementById("hotCities").getElementsByTagName("li");
+                for (let i = 0; i < hotCountryLi.length; i++)
+                {
+	                if (i>0)
+		                contentRecommendBox.appendChild(document.createElement("br"));
+	                let singleColumn=document.createElement("span");
+	                let countryName=hotCityLi[i].getElementsByTagName("h5")[0].innerHTML;
+	                let cityName=hotCityLi[i].getElementsByTagName("p")[0].innerHTML;
+	                singleColumn.innerHTML=cityName;
+	                singleColumn.setAttribute("class","singleItem");
+	                let onclickStr="document.getElementById('country').value='"+countryName+"';setCity(document.getElementById('country'),document.getElementById('city'));document.getElementById('city').value='"+cityName+"';document.getElementById('contentForm').submit();";
+	                singleColumn.setAttribute("onclick",onclickStr);
+	                cityRecommendBox.appendChild(singleColumn);
+                }
+            </script>-->
         </div>
     </section>
     <a href="#">

@@ -145,7 +145,16 @@
             mysqli_select_db($link, DB_NAME);
             mysqli_set_charset($link, "utf8");
 
-            if ($_GET['searchMethod'] == "title")
+            if ($_GET['searchMethod'] == "content")
+            {
+                $desStr = $_GET['description'];
+                $words = explode(" ", $desStr);
+                $searchStr = "%";
+                for ($i = 0; $i < count($words); $i++)
+                    $searchStr = ($searchStr . $words[$i] . "%");
+                $query = "select ImageID,Title,Description,PATH from travelimage where Description like '$searchStr';";
+            }
+            else
             {
                 $titleStr = $_GET['title'];
 
@@ -154,15 +163,6 @@
                 for ($i = 0; $i < count($words); $i++)
                     $searchStr = ($searchStr . $words[$i] . "%");
                 $query = "select ImageID,Title,Description,PATH from travelimage where Title like '$searchStr';";
-            }
-            else
-            {
-                $desStr = $_GET['description'];
-                $words = explode(" ", $desStr);
-                $searchStr = "%";
-                for ($i = 0; $i < count($words); $i++)
-                    $searchStr = ($searchStr . $words[$i] . "%");
-                $query = "select ImageID,Title,Description,PATH from travelimage where Description like '$searchStr';";
             }
             $resultArray = mysqli_fetch_all(mysqli_query($link, $query), MYSQLI_ASSOC);
             if (count($resultArray) == 0)

@@ -1,4 +1,5 @@
 <?php
-session_start();
-var_dump($_SESSION);
+$dir = dirname(__FILE__);
+$destination = str_replace("src\\html\\personalCenter", "sources\\img\\travel-images\\normal\\medium\\", $dir);
+echo $destination;
 ?>

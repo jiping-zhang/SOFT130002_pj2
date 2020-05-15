@@ -10,6 +10,7 @@
     <script src="../../../js/singUpSendEmail.js" type="text/javascript" rel="script" defer></script>
     <link rel="stylesheet" href="sliderStyle.css">
     <script type="text/javascript" src="slider.js"></script>
+    <script src="../../../js/passwordIntensity.js" type="text/javascript" rel="script" defer></script>
 </head>
 <body>
 <header id="navBox">
@@ -31,7 +32,7 @@
             <tr>
                 <td><p>用户名查重</p></td>
                 <td>
-                    <button class="otherBt" id="checkUserNameBt" onclick="console.log('check')">检查</button>
+                    <button class="otherBt" id="checkUserNameBt">检查</button>
                 </td>
                 <td colspan="2"><p id="isAvailableUserNameText" style="color: #ffffff">&nbsp;</p></td>
                 <script>
@@ -72,8 +73,6 @@
 					{
 						userNameRepeatCheck()
 					}
-
-
                 </script>
             </tr>
             <tr>
@@ -82,6 +81,12 @@
                            onkeyup="passwordCheck();rePasswordCheck()" required="required"
                            pattern="[0-9a-zA-Z]{8,17}"></td>
                 <td colspan="2"><p id="wrongPw">密码需由8-16位 英语字母或数字 组成</p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span style="color: #d1f8ff">密码强度: </span><span id="intensity"></span></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td><p>确认密码</p></td>
@@ -151,4 +156,3 @@
 			document.getElementById("content").style.margin = "0 10% 50px";
 	})
 </script>
-</

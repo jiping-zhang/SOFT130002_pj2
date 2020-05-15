@@ -26,7 +26,7 @@
     $result = mysqli_query($link, $query);
     if (mysqli_fetch_array($result) == null)
     {
-        echo "<script>alert('该用户名（".$emailAddress."）不存在')</script>";
+        echo "<script>window.close();alert('该用户名（".$emailAddress."）不存在')</script>";
     }
     else
     {

@@ -32,11 +32,11 @@
             <br>
             <a href=\"../myFavourite.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
             <br>
-            <a href=\"login.php\"><span class=\"singleItem\"><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>
+            <a href=\"login.php\"><span class=\"singleItem\" id='selected'><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>
         </div>
     </div>";
     else
-        print "    <a href=\"login.php\"><span id=\"navRight\" class=\"singleItem\"><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>"
+        print "    <a href=\"login.php\"><span id=\"selected\" style='float: right' class=\"singleItem\"><img src=\"../../../../sources/img/navBox/login.jpg\">登陆</span></a>"
     ?>
     <a href="../../welcome.php"><span class="singleItem">首页</span></a>
     <a href="../../navItems/browserPage.php"><span class="singleItem">浏览页</span></a>

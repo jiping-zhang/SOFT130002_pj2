@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +13,22 @@
 </head>
 <body>
 <header id="navBox">
-    <?php
+<?php
     if (isset($_COOKIE['UID']))
-        print ">登陆</span></a>
+        print "<div class=\"singleMenu\" id=\"navRight\">
+        <span>个人中心</span>
+        <div class=\"singleCont\">
+            <a href=\"personalCenter/upload.php\"><span class=\"singleItem\"><img src=\"../../sources/img/navBox/upload.jpg\">上传</span></a>
+            <br>
+            <a href=\"personalCenter/myPhotos.php\"><span class=\"singleItem\"><img src=\"../../sources/img/navBox/myPhotos.jpg\">我的照片</span></a>
+            <br>
+            <a href=\"personalCenter/myFavourite.php\"><span class=\"singleItem\"><img src=\"../../sources/img/navBox/myFavourite.jpg\">我的收藏</span></a>
+            <br>
+            <a href=\"personalCenter/userInfoRelatedPages/login.php\"><span class=\"singleItem\"><img src=\"../../sources/img/navBox/login.jpg\">登陆</span></a>
         </div>
-    </div>\"";
+    </div>";
     else
-        print "    <a href=\"personalCenter/login.php\"><span class=\"singleItem\" id=\"navRight\"><img
-                src=\"../../sources/img/navBox/login.jpg\">登陆</span></a>"
+        print "    <a href=\"personalCenter/userInfoRelatedPages/login.php\"><span id=\"navRight\" class=\"singleItem\"><img src=\"../../sources/img/navBox/login.jpg\">登陆</span></a>"
     ?>
     <a href="welcome.php"><span class="singleItem" id="selected">首页</span></a>
     <a href="navItems/browserPage.php"><span class="singleItem">浏览页</span></a>
@@ -29,7 +37,7 @@
 <section id="content">
     <div id="contLeft">
         <div class="imgContainer">
-            <img class="contImg" src="../../sources/img/1.jpg">
+            <img class="contImg" src="../../sources/img/welcome.jpg">
         </div>
     </div>
     <div id="contRight">
@@ -38,7 +46,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
@@ -50,7 +58,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
@@ -62,7 +70,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
@@ -74,7 +82,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
@@ -86,7 +94,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
@@ -98,7 +106,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/1.jpg">
+                <img class="contImg" src="../../sources/img/welcome.jpg">
             </div>
             <div class="description">
                 <p>
