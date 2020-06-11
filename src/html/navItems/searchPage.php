@@ -5,6 +5,7 @@
     <link href="../../css/reset.css" rel="stylesheet" type="text/css">
     <link href="../../css/main.css" rel="stylesheet" type="text/css">
     <link href="../../css/cutImage.css" rel="stylesheet" type="text/css">
+    <link href="../../css/pageBox.css" rel="stylesheet" type="text/css">
     <link href="../../css/pages/search.css" rel="stylesheet" type="text/css">
     <script src="../../js/cutImage.js" type="text/javascript"></script>
     <title>搜索</title>
@@ -38,12 +39,12 @@
     </div>
     <div class="contRow">
         <div>
-            <form name="contentForm" id="contentForm" action="searchPage.php" method="get">
-                <input type="radio" name="searchMethod" value="title" checked> by title
+            <form name="contentForm" id="contentForm" action="searchPage.php"  method="get">
+                <input type="radio" name="searchMethod" id="searchMethod_title" value="title" checked> by title
                 <br>
                 <input type="text" name="title" id="searchTitle">
                 <br>
-                <input type="radio" name="searchMethod" value="content"> by content
+                <input type="radio" name="searchMethod" id="searchMethod_content" value="content"> by content
                 <br>
                 <textarea name="description" id="searchCont"></textarea>
                 <br>
@@ -203,6 +204,17 @@
 	{
 		containerList[i].getElementsByClassName('contImg')[0].addEventListener('load', cutImage);
 	}
+
+/*	document.getElementById("searchTitle").onclick=function ()
+	{
+        document.getElementById("searchMethod_title").setAttribute("checked","checked");
+        document.getElementById("searchMethod_content").removeAttribute("checked");
+	};
+	document.getElementById("searchCont").onclick=function ()
+	{
+		document.getElementById("searchMethod_content").setAttribute("checked","checked");
+		document.getElementById("searchMethod_title").removeAttribute("checked");
+	}*/
 </script>
 </body>
 </html>

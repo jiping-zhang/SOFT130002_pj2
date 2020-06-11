@@ -35,8 +35,12 @@ if (isset($_COOKIE['UID']))
         echo "Type: " . $_FILES["file0"]["type"] . "<br />";
         echo "Size: " . ($_FILES["file0"]["size"] / 1024) . " Kb<br />";
         echo "Temp file: " . $_FILES["file0"]["tmp_name"] . "<br />";*/
-        $query = "select * from travelimage where ImageID=$imageID;";
+        $query = "select * from travelimage where ImageID=$imageID and UID=$uid;";
+
         $initialImgInfo = mysqli_fetch_assoc(mysqli_query($link, $query));
+        if ($initialImgInfo["ImageID"]==null&&$initialImgInfo["UID"]==null)
+            echo "<script>window.location.href='userInfoRelatedPages/login.php';alert('登陆信息错误，请重新登陆')</script>";
+
 
         $query = "select ISO from geocountries where lower(CountryName)=lower('" . $countryName . "');";
         try

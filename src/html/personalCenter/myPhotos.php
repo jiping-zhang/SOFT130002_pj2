@@ -10,6 +10,7 @@ if (!isset($_COOKIE['UID']))
     <link href="../../css/main.css" rel="stylesheet" type="text/css">
     <link href="../../css/cutImage.css" rel="stylesheet" type="text/css">
     <link href="../../css/pages/search.css" rel="stylesheet" type="text/css">
+    <link href="../../css/pageBox.css" rel="stylesheet" type="text/css">
     <script src="../../js/cutImage.js" type="text/javascript" defer></script>
     <title>我的照片</title>
 </head>

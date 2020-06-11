@@ -19,13 +19,16 @@ mysqli_set_charset($link, "utf8");
 $userName = $_POST['userName'];
 $password = $_POST['password'];
 $captchaNumber = $_POST['captchaNumber'];
-function SHA256Hex($str)
-{
-    $re = hash('sha256', $str, true);
+function SHA256Hex($str){
+    $re=hash('sha256', $str,true);
     return bin2hex($re);
 }
 
-$password_sha256 = SHA256Hex($password);
+function getHashedPassword($userName,$inputPassword)
+{
+    return SHA256Hex(($userName.$inputPassword));
+}
+$password_sha256=getHashedPassword($userName,$password);
 $query = "select * from traveluser where UserName='" . $userName . "';";
 $result = mysqli_query($link, $query);
 if (mysqli_fetch_array($result) == null)

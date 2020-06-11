@@ -1,0 +1,85 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>获取地区轮廓线</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=你的密钥"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+	</script>
+	<style type="text/css">
+		body{font-size:13px;margin:10px}
+	#container{width:1200px;height:600px;margin-left:200px;border:1px solid gray}
+	</style>
+	</head>
+	<body>
+	<div id="container"></div>
+		<div id="r-result">
+		<input type="button"  οnclick="openHeatmap();" value="显示热力图"/>
+		<input type="button"  οnclick="closeHeatmap();" value="关闭热力图"/>
+		</div>
+		<br />
+		<script type="text/javascript">
+	var map = new BMap.Map("container");
+	map.centerAndZoom(new BMap.Point(117.6, 30.9), 11);
+	map.addControl(new BMap.OverviewMapControl());
+	map.addControl(new BMap.NavigationControl({
+			type: BMAP_NAVIGATION_CONTROL_SMALL,
+			anchor:BMAP_ANCHOR_TOP_RIGHT ,
+			offset: new BMap.Size(1000, 600)
+		})
+	);
+	var bdary = new BMap.Boundary();
+	var name = "铜陵市"
+	bdary.get(name, function(rs){       //获取行政区域
+		var count = rs.boundaries.length; //行政区域的点有多少个
+		var EN_JW = "180, 90;";         //东北角
+		var NW_JW = "-180, 90;";       //西北角
+		var WS_JW = "-180, -90;";       //西南角
+		var SE_JW = "180, -90;";        //东南角
+		var ply = new BMap.Polygon(rs.boundaries[count-1] + SE_JW + SE_JW + WS_JW + NW_JW + EN_JW + SE_JW, {
+			strokeColor: "none",
+			fillColor:"#7ab7f2",
+			fillOpacity:1,
+			strokeOpacity:1
+		}); //建立多边形覆盖物
+		map.addOverlay(ply);  //添加覆盖物
+	})//bdary的结尾
+
+	map.enableScrollWheelZoom();
+	//热力图部分
+	//设置热力图的点参数
+	var points =[
+		{"lng":117.862179,"lat":30.940701,"count":50},
+		{"lng":117.226897,"lat":30.703597,"count":51},
+		{"lng":117.79901,"lat":30.956806,"count":15},
+		{"lng":117.899809,"lat":30.917902,"count":40},
+		{"lng":117.799091,"lat":30.956403,"count":100}];
+	//判断浏览器是否支持canvas
+	if(!isSupportCanvas()){alert('热力图目前只支持有canvas支持的浏览器,您所使用的浏览器不能使用热力图功能~')}
+	//热力图初始化
+	heatmapOverlay1 = new BMapLib.HeatmapOverlay({"radius":20});
+	//地图添加热力图层
+	map.addOverlay(heatmapOverlay1);
+	//热力图层添加数据
+	heatmapOverlay1.setDataSet({data:points,max:100});
+	//不知道作用
+	//判断浏览区是否支持canvas
+	function isSupportCanvas(){
+		var elem = document.createElement('canvas');
+		return !!(elem.getContext && elem.getContext('2d'));
+	}
+	//显示热力图
+	function openHeatmap(){
+		heatmapOverlay1.show();
+	}
+	//关闭热力图
+	function closeHeatmap(){
+		heatmapOverlay1.hide();
+	}
+	//设置初始化页面的时候不显示热力图
+	closeHeatmap();
+	//热力图部分
+    </script>
+    </body>
+</html>

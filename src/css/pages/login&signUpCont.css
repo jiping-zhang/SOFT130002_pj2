@@ -16,7 +16,7 @@
     padding: 8px;
 }
 
-#content table #wrongUserName,#wrongPw,#wrongRePw{
+#content table #wrongNickName,#wrongUserName,#wrongPw,#wrongRePw{
     color: #999999;
     overflow: hidden;
 }

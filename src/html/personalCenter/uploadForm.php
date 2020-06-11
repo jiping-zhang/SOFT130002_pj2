@@ -28,6 +28,23 @@ if (isset($_COOKIE['UID']))
     $cityName = $_POST['city'];
     $title = $_POST['title'];
     $description = $_POST['description'];
+    function safe_replace($string) {
+        $string = str_replace('%20','',$string);
+        $string = str_replace('%27','',$string);
+        $string = str_replace('%2527','',$string);
+        $string = str_replace('*','',$string);
+        $string = str_replace('"','&quot;',$string);
+        $string = str_replace("'",'',$string);
+        $string = str_replace('"','',$string);
+        $string = str_replace(';','',$string);
+        $string = str_replace('<','&lt;',$string);
+        $string = str_replace('>','&gt;',$string);
+        $string = str_replace("{",'',$string);
+        $string = str_replace('}','',$string);
+        $string = str_replace('\\','',$string);
+        return $string;
+    }
+    $description=safe_replace($description);
 
     //echo $content . $countryName . $cityName . $title . $description . '<br/>';
 

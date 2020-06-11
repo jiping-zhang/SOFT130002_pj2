@@ -14,23 +14,76 @@
 </head>
 <body>
 <header id="navBox">
-    <a href="login.php"><span id="navRight" class="singleItem"><img
-            src="../../../../sources/img/navBox/login.jpg">登陆</span></a>
+    <a href="login.php"><span id="navRight" class="singleItem"><img src="../../../../sources/img/navBox/login.jpg">登陆</span></a>
     <a href="../../welcome.php"><span class="singleItem">首页</span></a>
     <a href="../../navItems/browserPage.php"><span class="singleItem">浏览页</span></a>
     <a href="../../navItems/searchPage.php"><span class="singleItem">搜索页</span></a>
 </header>
+<div id="messageBox" style="position: fixed;right: 0;bottom: 80px;width: 400px;height: 300px" >
+
+</div>
 <section id="content">
     <form action="signUpForm.php" method="post" id="signUpForm">
         <table>
             <tr>
-                <td><p>输入用户名</p></td>
-                <td><input type="text" name="userName" id="userName" required onblur="userNameCheck();"
-                           pattern="\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}"></td>
-                <td colspan="2"><p id="wrongUserName">用户名需为正确的邮箱地址</p></td>
+                <td><p>输入昵称</p></td>
+                <td><input type="text" name="nickName" id="nickName" required onblur="nickNameCheck();"
+                           pattern="[A-Za-z0-9_]{6,16}"></td>
+                <td colspan="2"><p id="wrongNickName">昵称需由6-16位 字母或数字或_ 组成</p></td>
             </tr>
             <tr>
-                <td><p>用户名查重</p></td>
+                <td><p>昵称查重</p></td>
+                <td>
+                    <button class="otherBt" id="checkNickNameBt">检查</button>
+                </td>
+                <td colspan="2"><p id="isAvailableNickNameText" style="color: #ffffff">&nbsp;</p></td>
+                <script>
+			        function nickNameRepeatCheck()
+			        {
+				        let nickNameInput = document.getElementById("nickName");
+				        let isAvailableNickNameText = document.getElementById("isAvailableNickNameText");
+				        if (nickNameInput.checkValidity())
+				        {
+					        let xmlhttp = new XMLHttpRequest();
+					        xmlhttp.onreadystatechange = function ()
+					        {
+						        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+						        {
+							        let responseText = xmlhttp.responseText;
+							        if (responseText === "n") //not exist
+							        {
+								        isAvailableNickNameText.style.color = "#dfffe4";
+								        isAvailableNickNameText.innerHTML = "可用";
+							        }
+							        else //exist
+							        {
+								        isAvailableNickNameText.style.color = "#ffd3d5";
+								        isAvailableNickNameText.innerHTML = "不可用";
+							        }
+						        }
+					        };
+					        xmlhttp.open("GET", "nickNameCheck.php?nickName=" + nickNameInput.value, true);
+					        xmlhttp.send();
+				        }
+				        else
+				        {
+					        alert("请先输入正确的昵称");
+				        }
+			        }
+
+			        document.getElementById("checkNickNameBt").onclick = function ()
+			        {
+				        nickNameRepeatCheck()
+			        }
+                </script>
+            <tr>
+                <td><p>输入邮箱名</p></td>
+                <td><input type="text" name="userName" id="userName" required onblur="userNameCheck();"
+                           pattern="\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}"></td>
+                <td colspan="2"><p id="wrongUserName">邮箱名需为正确的邮箱地址</p></td>
+            </tr>
+            <tr>
+                <td><p>邮箱名查重</p></td>
                 <td>
                     <button class="otherBt" id="checkUserNameBt">检查</button>
                 </td>

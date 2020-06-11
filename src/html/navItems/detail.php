@@ -50,7 +50,7 @@
     $imgInfoArray = mysqli_fetch_assoc($result);
 
     $upLoadUserID = $imgInfoArray['UID'];
-    $query = "select UserName from traveluser where UID=" . $upLoadUserID . ";";
+    $query = "select NickName from traveluser where UID=" . $upLoadUserID . ";";
     $upLoadUser = mysqli_fetch_row(mysqli_query($link, $query))[0];
 
     $cityCode = $imgInfoArray['CityCode'];

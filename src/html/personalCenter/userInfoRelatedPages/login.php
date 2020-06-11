@@ -75,13 +75,13 @@
                 <td><input type=\"submit\" class=\"submitBt\" value=\"登陆\"></td>
                 <!--                <td><a href=\"signUp.html\"><span class=\"submitBt\">注册</span></a></td>-->
                 <td>
-                    <button class=\"submitBt\" onclick=\"window.location.href='signUp.html'\">注册</button>
+                    <button class=\"submitBt\" type=\"button\" onclick=\"window.location.href='signUp.html'\">注册</button>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <button class=\"otherBt\" onclick=\"window.location.href='resetPassword.html'\">忘记密码</button>
+                    <button class=\"otherBt\" type=\"button\" onclick=\"window.location.href='resetPassword.html'\">忘记密码</button>
                 </td>
             </tr>
         </table>

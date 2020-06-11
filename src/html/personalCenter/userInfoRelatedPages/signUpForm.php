@@ -17,13 +17,19 @@ mysqli_select_db($link, DB_NAME);
 mysqli_set_charset($link, "utf8");
 //    $query="insert into userinfo(username,password) values("+($_POST['userName']+"")+","+($_POST['password']+"")+")";
 $userName = $_POST['userName'];
+$nickName=$_POST['nickName'];
 $password = $_POST['password'];
 $captchaNumber=$_POST['captchaNumber'];
 function SHA256Hex($str){
     $re=hash('sha256', $str,true);
     return bin2hex($re);
 }
-$password_sha256=SHA256Hex($password);
+
+function getHashedPassword($userName,$inputPassword)
+{
+    return SHA256Hex(($userName.$inputPassword));
+}
+$password_sha256=getHashedPassword($userName,$password);
 $query = "select * from traveluser where UserName='" . $userName . "';";
 $result = mysqli_query($link, $query);
 if (mysqli_fetch_array($result) == null)
@@ -34,7 +40,7 @@ if (mysqli_fetch_array($result) == null)
         $correctCaptchaNumber=$_SESSION[$userName];
         if ((int)$captchaNumber==(int)$correctCaptchaNumber)
         {
-            $query = "insert into traveluser(UserName,Pass,State) values ('" . $userName . "','" . $password_sha256 . "',1) ;";
+            $query = "insert into traveluser(UserName,Pass,State,NickName) values ('" . $userName . "','" . $password_sha256 . "',1,'$nickName') ;";
             mysqli_query($link, $query);
             echo "<script>window.location.href='./login.php';alert('注册成功，请登陆')</script>";
         }

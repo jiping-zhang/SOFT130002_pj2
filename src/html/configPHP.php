@@ -12,4 +12,7 @@ define('SMTP_PORT',465);
 define('EMAIL_FORMNAME','zjp');
 define('EMAIL_USERNAME','441624650@qq.com');
 define('EMAIL_PASSWORD','tjblujdjjhalbiic');
+
+
+
 ?>

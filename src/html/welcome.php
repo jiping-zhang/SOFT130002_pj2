@@ -8,7 +8,6 @@
     <link href="../css/cutImage.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../js/cutImage.js"></script>
     <script type="text/javascript" src="../js/welcomePage.js" defer></script>
-    <script type="text/javascript" src="../js/login.js" defer></script>
     <title>欢迎（首页）</title>
 </head>
 <body>
@@ -37,7 +36,7 @@
 <section id="content">
     <div id="contLeft">
         <div class="imgContainer">
-            <img class="contImg" src="../../sources/img/welcome.jpg">
+            <img class="contImg">
         </div>
     </div>
     <div id="contRight">
@@ -46,7 +45,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -58,7 +57,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -70,7 +69,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -82,7 +81,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -94,7 +93,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -106,7 +105,7 @@
                 <h3></h3>
             </div>
             <div class="imgContainer">
-                <img class="contImg" src="../../sources/img/welcome.jpg">
+                <img class="contImg">
             </div>
             <div class="description">
                 <p>
@@ -120,10 +119,8 @@
         <input type="number" name="imageID" id="imageIDInput">
         <input type="text" name="imagePath" id="imagePathInput">
     </form>
-    <ul id="imgList">
+    <span id="hottestImgInfo">
         <?php
-        $uid = $_COOKIE['UID'];
-
         $dir = dirname(__FILE__);
         $indexOfL=strpos($dir,"src\\html")+8;
         $dir=substr($dir,0,$indexOfL)."\\configPHP.php";
@@ -132,7 +129,25 @@
         mysqli_select_db($link,DB_NAME);
         mysqli_set_charset($link, "utf8");
 
-        $query = "select ImageID,Title,Description,PATH from travelimage ;";
+        $query="select * from travelimage order by Favor desc;";
+        $hottestImg=mysqli_fetch_assoc(mysqli_query($link,$query));
+        $hottestImgPath=$hottestImg['PATH'];
+        $hottestImgID=$hottestImg['ImageID'];
+
+        echo "<h5>$hottestImgID</h5><p>$hottestImgPath</p>";
+
+        mysqli_close($link);
+        ?>
+    </span>
+    <ul id="imgList">
+        <?php
+        //$uid = $_COOKIE['UID'];
+
+        $link = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD);
+        mysqli_select_db($link,DB_NAME);
+        mysqli_set_charset($link, "utf8");
+
+        $query = "select ImageID,Title,Description,PATH,Favor from travelimage order by Favor desc ;";
         $resultArray = mysqli_fetch_all(mysqli_query($link, $query), MYSQLI_ASSOC);
 
         if (count($resultArray) == 0)
@@ -148,8 +163,9 @@
         mysqli_close($link);
 
         echo '<script type="text/javascript" src="../js/pageBox/welcomePages.js"></script>';
-        echo '<script>refresh();</script>';
+        echo '<script>set6HotImg();setHottestImg()</script>';
         ?>
+        <script>set6HotImg();setHottestImg()</script>
     </ul>
 </div>
 <footer id="foot">

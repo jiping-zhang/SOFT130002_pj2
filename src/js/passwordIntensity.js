@@ -32,7 +32,7 @@ passInput.addEventListener("keyup", function ()
 	else if (intensity>100&&intensity<=200)
 	{
 		intensityText.innerHTML="　弱";
-		intensityText.style.color="#ffcab1";
+		intensityText.style.color="#ffd5b4";
 	}
 	else if (intensity>200&&intensity<=320)
 	{

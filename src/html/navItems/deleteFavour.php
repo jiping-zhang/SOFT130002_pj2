@@ -11,7 +11,6 @@ if (isset($_COOKIE['UID']))
     mysqli_select_db($link, DB_NAME);
     mysqli_set_charset($link, "utf8");
 
-    $uid=$_COOKIE['UID'];
     $password_sha256=$_COOKIE['password'];
     $query = "select * from traveluser where UID= $uid and Pass = '$password_sha256' ;";
     $result = mysqli_query($link, $query);

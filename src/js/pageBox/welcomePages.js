@@ -49,6 +49,32 @@ const refresh = (function ()
 	}
 })();
 
+const set6HotImg=(function ()
+{
+	const IMG_FOLDER_URL = "../../sources/img/travel-images/normal/medium/";
+	const contentElement = document.getElementById('contRight');
+	const contImgList = contentElement.getElementsByClassName('contImg');
+	const titleList=contentElement.getElementsByClassName("imgTitle");
+	const descriptionList = contentElement.getElementsByClassName("description");
+	const allImgInfoLi = document.getElementById("imgList").getElementsByClassName("oneImgInfo");
+	const numberOfImages=allImgInfoLi.length;
+	return function ()
+	{
+		for (let i = 0; i < 6; i++)
+		{
+			contImgList[i].src = IMG_FOLDER_URL + allImgInfoLi[i].getElementsByTagName('p')[0].innerHTML;
+			contImgList[i].imageID = parseInt(allImgInfoLi[i].getElementsByTagName('h5')[0].innerHTML);
+			contImgList[i].style.cursor = 'pointer';
+			contImgList[i].onclick=function ()
+			{
+				goToDetailPage(this.imageID,this.src);
+			};
+			titleList[i].getElementsByTagName("h3")[0].innerHTML=allImgInfoLi[i].getElementsByTagName('h6')[0].innerHTML;
+			descriptionList[i].getElementsByTagName("p")[0].innerHTML=allImgInfoLi[i].getElementsByTagName('article')[0].innerHTML;
+		}
+	}
+})();
+
 const goToDetailPage = (function ()
 {
 	const imageIDForm = document.getElementById('imageIDForm');
@@ -61,3 +87,22 @@ const goToDetailPage = (function ()
 		imageIDForm.submit();
 	}
 })();
+
+
+const setHottestImg=(function ()
+{
+	const IMG_FOLDER_URL = "../../sources/img/travel-images/normal/medium/";
+	const hottestImgElement=document.getElementById("contLeft").getElementsByClassName("contImg")[0];
+	const hottestImgInfo=document.getElementById("hottestImgInfo");
+	return function ()
+	{
+		hottestImgElement.src=IMG_FOLDER_URL +hottestImgInfo.getElementsByTagName("p")[0].innerHTML;
+		hottestImgElement.imageID=parseInt(hottestImgInfo.getElementsByTagName("h5")[0].innerHTML);
+		hottestImgElement.style.cursor="pointer";
+		hottestImgElement.onclick=function ()
+		{
+			goToDetailPage(this.imageID,this.src);
+		}
+	}
+})();
+

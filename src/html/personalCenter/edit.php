@@ -11,10 +11,9 @@ if (!isset($_COOKIE['UID']))
     <!--    <link href="../../css/pages/cutImage.css" rel="stylesheet" type="text/css">-->
     <link href="../../css/pages/upload.css" rel="stylesheet" type="text/css">
     <link href="../../css/cutImage.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="../../js/cityCorrelateCountry.js" defer></script>
     <script type="text/javascript" src="../../js/stretchImage.js" defer></script>
     <script type="text/javascript" src="../../js/uploadImg.js" defer></script>
-    <title>上传</title>
+    <title>修改</title>
 </head>
 <body>
 <header id="navBox">
@@ -39,7 +38,7 @@ if (!isset($_COOKIE['UID']))
 <section id="content">
     <form name="uploadForm" id="contentForm" action="editForm.php" method="post" enctype="multipart/form-data">
         <div class="contRow title">
-            上传
+            修改
         </div>
         <div class="hidden">
             <input type="number" name="imageID"
@@ -128,17 +127,69 @@ if (!isset($_COOKIE['UID']))
                 ?>>wonder
                 </option>
             </select>
-            <input type="text" name="country" required
+            <input type="text" name="country" id="country" list="countryList" required  <?php
+                            echo "value=" . $countryName
+                            ?>>
+            <datalist id="countryList">
+                <option value="United States">America</option>
+                <option value="United Kingdom">Britain</option>
                 <?php
-                echo "value=" . $countryName
+                $dir = dirname(__FILE__);
+                $indexOfL = strpos($dir, "src\\html") + 8;
+                $dir = substr($dir, 0, $indexOfL) . "\\configPHP.php";
+                require $dir;
+                $link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
+                mysqli_select_db($link, DB_NAME);
+                mysqli_set_charset($link, "utf8");
+                $query="select CountryName,Population from geocountries order by Population desc ;";
+                $resultArray=array_column(mysqli_fetch_all(mysqli_query($link,$query)),0);
+                for($i=0;$i<count($resultArray);$i++)
+                {
+                    $countryName=$resultArray[$i];
+                    echo "<option value='$countryName'></option>";
+                }
                 ?>
-            >
-            <input type="text" name="city"
-                <?php
-                if (isset($cityName))
-                    echo "value=" . $cityName
-                ?>
-            >
+            </datalist>
+            <input type="text" name="city" id="city" list="cityList" required  <?php
+                            echo "value=" . $cityName
+                            ?>>
+            <datalist id="cityList">
+
+            </datalist>
+            <script type="text/javascript">
+		        function setCity(countryName)
+		        {
+			        let xmlhttp;
+			        if (countryName.length === 0)
+			        {
+				        document.getElementById("cityList").innerHTML = "";
+				        return;
+			        }
+			        if (window.XMLHttpRequest)
+			        {// code for IE7+, Firefox, Chrome, Opera, Safari
+				        xmlhttp = new XMLHttpRequest();
+			        }
+			        else
+			        {// code for IE6, IE5
+				        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			        }
+			        xmlhttp.onreadystatechange = function ()
+			        {
+				        if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+				        {
+					        document.getElementById("cityList").innerHTML = xmlhttp.responseText;
+				        }
+			        };
+			        xmlhttp.open("GET", "setCity.php?countryName=" + countryName, true);
+			        xmlhttp.send();
+		        }
+
+		        document.getElementById("country").onkeyup=function()
+		        {
+			        document.getElementById("city").value=null;
+			        setCity(this.value);
+		        }
+            </script>
         </div>
         <div class="contRow">
             <p>title</p>
@@ -151,12 +202,10 @@ if (!isset($_COOKIE['UID']))
             <br>
             <p>description</p>
             <br>
-            <textarea name="description" id="uploadCont"
-             <?php
-             if ($description!=null)
-                 echo "value=".$description
-             ?>
-            ></textarea>
+            <textarea name="description" id="uploadCont"><?php
+                if ($description!=null)
+                    echo $description
+                ?></textarea>
         </div>
         <div class="contRow_bottom" id="pageBox">
             <input type="submit" class="submit" value="upload">
