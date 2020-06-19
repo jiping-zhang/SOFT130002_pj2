@@ -92,6 +92,7 @@ if (!isset($_COOKIE['UID']))
             </div>
             <input type="file" name="file0" id="file0" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
                    onchange="document.getElementById('changeTimes').value=1;"><br>
+            
         </div>
         <div class="contRow">
             <select name="content">
@@ -128,7 +129,7 @@ if (!isset($_COOKIE['UID']))
                 </option>
             </select>
             <input type="text" name="country" id="country" list="countryList" required  <?php
-                            echo "value=" . $countryName
+                            echo "value='" . $countryName."'"
                             ?>>
             <datalist id="countryList">
                 <option value="United States">America</option>
@@ -151,7 +152,7 @@ if (!isset($_COOKIE['UID']))
                 ?>
             </datalist>
             <input type="text" name="city" id="city" list="cityList" required  <?php
-                            echo "value=" . $cityName
+                            echo "value='" . $cityName."'"
                             ?>>
             <datalist id="cityList">
 

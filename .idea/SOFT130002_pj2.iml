@@ -14,5 +14,6 @@
     <orderEntry type="library" name="L2Dwidget.0" level="application" />
     <orderEntry type="library" name="L2Ddget" level="application" />
     <orderEntry type="library" name="L2Dget" level="application" />
+    <orderEntry type="library" name="playMusic2" level="application" />
   </component>
 </module>

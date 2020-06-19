@@ -262,7 +262,11 @@
                 else
                 {
                     $imgOnThisPage = 0;
-                    for ($i = 0; $i < count($resultArray); $i++)
+                    if (count($resultArray)>30)
+                        $length=30;
+                    else
+                        $length=count($resultArray);
+                    for ($i = 0; $i < $length; $i++)
                     {
                         if ($imgOnThisPage == 0)
                             echo '<li class="onePageInfo"><ul>';
